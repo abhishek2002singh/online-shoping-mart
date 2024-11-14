@@ -10,7 +10,7 @@ const port = process.env.PORT || 7000
 
 const cors = require('cors');
 const corsOptions ={
-    origin:'http://localhost:3000', 
+    origin:'https://gregarious-melba-b4d343.netlify.app', 
     credentials:true,            //access-control-allow-credentials:true
   
 }
