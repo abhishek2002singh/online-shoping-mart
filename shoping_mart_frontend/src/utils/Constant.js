@@ -1,1 +1,1 @@
-export const BASE_URL = 'http://localhost:7000';  // Change this to match the backend port
+export const BASE_URL = 'https://online-shoping-mart.onrender.com';  // Change this to match the backend port
