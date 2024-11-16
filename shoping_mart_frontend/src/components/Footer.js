@@ -19,11 +19,11 @@ const Footer = () => {
           <nav className="mb-6 md:mb-0 text-center md:text-left">
             <h6 className="text-lg font-semibold mb-4">Company</h6>
             <ul className="space-y-2">
-              <Link to='/about'>
-              <li><a href="/about" className="link link-hover text-primary hover:text-secondary transition-colors">About Us</a></li></Link>
-              <Link to='/skills'><li><a href="/skills" className="link link-hover text-primary hover:text-secondary transition-colors">Skills</a></li></Link>
-              <Link to='/jobs'><li><a href="/jobs" className="link link-hover text-primary hover:text-secondary transition-colors">Jobs</a></li></Link>
-              <Link to='/contact'><li><a href="/contact" className="link link-hover text-primary hover:text-secondary transition-colors">Contact</a></li></Link>
+              <Link to='/app/about'>
+              <li><a href="/app/about" className="link link-hover text-primary hover:text-secondary transition-colors">About Us</a></li></Link>
+              <Link to='/app/skills'><li><a href="/skills" className="link link-hover text-primary hover:text-secondary transition-colors">Skills</a></li></Link>
+              <Link to='/app/jobs'><li><a href="/jobs" className="link link-hover text-primary hover:text-secondary transition-colors">Jobs</a></li></Link>
+              <Link to='/app/contact'><li><a href="/contact" className="link link-hover text-primary hover:text-secondary transition-colors">Contact</a></li></Link>
             </ul>
           </nav>
   

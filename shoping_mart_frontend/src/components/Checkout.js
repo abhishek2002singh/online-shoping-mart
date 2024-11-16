@@ -148,7 +148,7 @@ const Checkout = () => {
         {/* Link to View Order Details */}
         {orderPlaced && (
           <Link
-            to="/place"
+            to="/app/place"
             className="text-blue-500 underline mt-4 block text-center"
           >
             View Order Details

@@ -33,7 +33,7 @@ const ShowProfile = ({ userShowData }) => {
       </div>
 
       {/* Edit Profile Button */}
-      <Link to='/editProfile'>
+      <Link to='/app/editProfile'>
         <button className="mt-6 px-4 py-2 bg-indigo-500 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-75">
           Edit Profile
         </button>

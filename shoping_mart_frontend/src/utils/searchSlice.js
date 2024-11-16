@@ -8,7 +8,7 @@ const searchSlice = createSlice({
   },
   reducers: {
     addSearchItems: (state, action) => {
-      state.items.push(action.payload);  // Add a product to the cart
+      state.searchItems.push(action.payload);  // Add a product to the cart
     },
     setSearchResults: (state, action) => {
       state.searchResults = action.payload;  // Set the filtered search results

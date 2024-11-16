@@ -97,7 +97,7 @@ const ProductDetails = () => {
             <button className="bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 flex items-center gap-2" onClick={handleAddClick}>
               <FaShoppingCart /> Add to Cart
             </button>
-            <Link to='/cardItems'>
+            <Link to='/app/cardItems'>
             <button className="bg-green-500 text-white py-2 px-6 rounded-md hover:bg-green-600 flex items-center gap-2" onClick={handleAddClick}>
               <FaCreditCard /> Buy Now
             </button>

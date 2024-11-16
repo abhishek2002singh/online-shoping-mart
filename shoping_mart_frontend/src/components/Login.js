@@ -19,7 +19,7 @@ const Login = () => {
     try {
       const res = await axios.post(`${BASE_URL}/login`, { emailId, password }, { withCredentials: true });
       dispatch(addUser(res.data));
-      navigate('/');  // Navigate to the home page
+      navigate('/app');  // Navigate to the home page
     } catch (err) {
       console.error(err);
     }
@@ -29,7 +29,7 @@ const Login = () => {
     try {
       const res = await axios.post(`${BASE_URL}/signup`, { firstName, lastName, emailId, password, mobileNumber }, { withCredentials: true });
       dispatch(addUser(res.data));
-      navigate('/');  // Navigate to the home page
+      navigate('/app');  // Navigate to the home page
     } catch (err) {
       console.error(err);
     }

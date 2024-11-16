@@ -80,7 +80,7 @@ const CardItems = () => {
         </div>
 
         {/* Checkout Now Button */}
-        <Link to='/Checkout'>
+        <Link to='/app/Checkout'>
         <button
           className="w-full mt-6 bg-green-500 text-white py-3 rounded-lg transition duration-300 hover:bg-green-600"
         >
@@ -91,7 +91,7 @@ const CardItems = () => {
 
       {/* Go to Home Button */}
       <Link
-        to="/"
+        to="/app"
         className="bg-blue-500 text-white px-6 py-3 rounded-lg mt-6 transition duration-300 hover:bg-blue-600"
       >
         Go to Home

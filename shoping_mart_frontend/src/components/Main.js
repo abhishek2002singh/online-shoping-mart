@@ -3,6 +3,8 @@ import Card from './Card';
 import Shimmer from './Shimmer';
 import useOnlineStatus from '../hooks/useOnlineStatus';
 import { MdSignalWifiOff } from 'react-icons/md';
+import { useDispatch , useSelector } from 'react-redux';
+import { addSearchItems } from '../utils/searchSlice';
 
 const categories = [
   { label: "Men's Clothing", value: "men's clothing" },
@@ -16,6 +18,10 @@ const Main = () => {
   const [loading, setLoading] = useState(true);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const dispatch = useDispatch()
+  const searchDataItems = useSelector((store)=>store.cardSearch.searchResults)
+  const [searchMessage, setSearchMessage] = useState('');
+  const [hasSearched, setHasSearched] = useState(true);
 
   
   
@@ -23,13 +29,34 @@ const Main = () => {
     fetch('https://fakestoreapi.com/products')
       .then(response => response.json())
       .then(data => {
+        // console.log(data)
         setProducts(data);
         setFilteredProducts(data); 
+       
+        dispatch(addSearchItems(data))
         setLoading(false); // Set loading to false once data is fetched
         
       })
       .catch(error => console.error('Error fetching products:', error));
-  }, []);
+  }, [dispatch]);
+
+  useEffect(() => {
+    
+      if (searchDataItems.length > 0) {
+        setFilteredProducts(searchDataItems);
+        setHasSearched(false);
+        setSearchMessage('');
+      } else {
+        
+        setFilteredProducts([]);
+        setSearchMessage(
+          'Please enter a correct name or product does not exist. Explore more by using category buttons.'
+        );
+       
+     
+    }
+  }, [searchDataItems, hasSearched]);
+
 
   const handleCategoryFilter = (category) => {
     setSelectedCategory(category);
@@ -43,6 +70,7 @@ const Main = () => {
   const handleTopRatingFilter = () => {
     const topRatedProducts = [...products].sort((a, b) => b.rating.rate - a.rating.rate);
     setFilteredProducts(topRatedProducts);
+    setHasSearched(false);
   };
 
   const onlinestatus= useOnlineStatus()
@@ -88,6 +116,8 @@ const Main = () => {
         </button>
       </div>
 
+      
+
       {/* Product List with Shimmer Effect */}
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {loading
@@ -99,7 +129,7 @@ const Main = () => {
                 title={product.title}
                 image={product.image}
                 price={product.price}
-                rating={product.rating.rate}
+                 rating={product.rating.rate}
               />
             ))
         }

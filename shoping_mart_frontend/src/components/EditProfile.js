@@ -37,7 +37,7 @@ const EditProfile = () => {
    
 
       // Navigate to the profile page after success
-       navigate('/'); 
+       navigate('/app/profile'); 
     } catch (err) {
       console.error(err);
      

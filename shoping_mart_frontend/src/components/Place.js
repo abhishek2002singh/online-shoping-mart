@@ -73,7 +73,7 @@ const Place = () => {
 
         {/* Go to Home Page Button */}
         <Link
-          to="/"
+          to="/app"
           className="bg-green-500 text-white py-3 w-full rounded-lg text-center transition duration-300 hover:bg-green-600 mt-6"
         >
           Go to Home Page
