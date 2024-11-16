@@ -10,7 +10,8 @@ const port = process.env.PORT || 7000
 
 const cors = require('cors');
 const corsOptions ={
-    origin:'https://gregarious-melba-b4d343.netlify.app', 
+    // origin:'https://gregarious-melba-b4d343.netlify.app', 
+    origin:'https://dancing-cat-505997.netlify.app', 
     credentials:true,            //access-control-allow-credentials:true
   
 }
