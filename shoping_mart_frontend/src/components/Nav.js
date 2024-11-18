@@ -8,16 +8,19 @@ import axios from 'axios';
 import { BASE_URL } from '../utils/Constant';
 import { removeUser } from '../utils/userSlice';
 import { setSearchResults } from '../utils/searchSlice'; // Import the setSearchResults action
+import ShimmerLogout from './ShimmerLogout';
 
 const Nav = () => {
   const cardItem = useSelector((store) => store.card.items);
   const userInformation = useSelector((store) => store.user?.user || null);
+  const userInformation1 = useSelector((store) => store.user?.data || null)
   const searchItems = useSelector((store) => store.cardSearch.searchItems); // Access the search items from Redux
   const isOnline = useOnlineStatus();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [search, setSearch] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [logoutShimmer , setlogoutShimmer] = useState(false)
 
   // Handle search functionality
   // const handleSearch = () => {
@@ -55,6 +58,7 @@ const handleSearch = () => {
 
   // Handle logout functionality
   const handleLogout = async () => {
+    setlogoutShimmer(true)
     try {
       await axios.post(`${BASE_URL}/logout`, {}, { withCredentials: true });
       dispatch(removeUser());
@@ -63,6 +67,11 @@ const handleSearch = () => {
       console.error(err);
     }
   };
+
+  if (logoutShimmer) {
+    return <ShimmerLogout />;
+  }
+
 
   return (
     <nav className="w-full bg-indigo-600 shadow-md">
@@ -100,14 +109,14 @@ const handleSearch = () => {
           </div>
 
           {/* Profile Image or Login Button */}
-          {userInformation ? (
+          {userInformation || userInformation1 ? (
             <div className="relative">
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
                 className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-white focus:outline-none"
               >
                 <img
-                  src={userInformation?.images || 'https://via.placeholder.com/150'}
+                  src={userInformation?.images ||userInformation1?.images || 'https://via.placeholder.com/150'}
                   alt="Profile"
                   className="w-full h-full object-cover"
                 />

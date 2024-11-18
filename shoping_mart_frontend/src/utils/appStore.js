@@ -4,6 +4,7 @@ import orderReducer  from './placeErderSlice'
 import searchReducer  from './searchSlice'
 import loginReducer  from './loginSlice'
 import userReducer  from './userSlice'
+import commentReducer from './commentSlice'
 
 
 
@@ -14,6 +15,7 @@ const appStore = configureStore({
          cardSearch: searchReducer,
          login: loginReducer,
          user : userReducer,
+         productComment: commentReducer,
         //  user :useReducer
     },
 

@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { FaShoppingCart, FaCreditCard, FaRegCreditCard, FaWallet, FaTag } from 'react-icons/fa';
 import ShimmerProduct from './ShimmerProduct';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItems } from '../utils/cardSlice';
 import { addOrder } from '../utils/placeErderSlice';
+import {setUserComments } from '../utils/commentSlice'
+import { FaStar } from 'react-icons/fa';
+import Rating from './Rating';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -12,6 +15,20 @@ const ProductDetails = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [showMessage, setShowMessage] = useState(false); // State to manage the "Item added" message
   const dispatch = useDispatch();
+  const [commentInput, setCommentInput,clearComments] = useState("");
+
+  //add comment 
+  const showAllComment = useSelector((store)=>store.productComment)
+  const userCommentShowData = useSelector((store)=>store.productComment.userComment)
+  console.log(userCommentShowData)
+  
+ 
+  const commentedData = showAllComment?.comments[0][id]?.comments||[];
+ 
+
+
+ 
+ 
     
   
 
@@ -58,8 +75,37 @@ const ProductDetails = () => {
     }, 4000);
   };
 
+  const handleCommentChange = (event) => {
+    setCommentInput(event.target.value); // Update the comment input state
+  };
+
+  const handleAddComment = () => {
+    if (commentInput.trim() === "") {
+      alert("Please enter a comment.");
+      return;
+    }
+
+    // Dispatch the new comment to Redux store
+    const newComment = {
+      user: "Kamal Yadav", // You can replace this with actual user data
+      timestamp: new Date().toISOString(),
+      comment: commentInput,
+    };
+
+    // Dispatch action to update the comments in Redux store
+    dispatch(setUserComments({ productId: id, newComment }));
+    
+
+    // Clear the comment input after submission
+    setCommentInput("");
+  };
+
+
+  //likes  
+  
+
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4  transition duration-500 ease-in-out transform hover:bg-lightBlue-100">
       <div className="flex flex-col md:flex-row gap-8">
         {/* Image gallery */}
         <div className="flex flex-col gap-4 md:w-1/3">
@@ -114,8 +160,9 @@ const ProductDetails = () => {
        )}
 
 
+
       {/* Available Offers Section */}
-      <div className="my-8 p-4 bg-gray-100 rounded-md">
+      {/* <div className="my-8 p-4 bg-gray-100 rounded-md">
         <h3 className="text-xl font-semibold mb-4">Available Offers</h3>
         <div className="text-gray-600 mb-4">
           <ul>
@@ -144,10 +191,10 @@ const ProductDetails = () => {
             </li>
           </ul>
         </div>
-      </div>
+      </div> */}
 
       {/* Mobile Protection and Warranty */}
-      <div className="my-8 p-4 bg-gray-100 rounded-md">
+      {/* <div className="my-8 p-4 bg-gray-100 rounded-md">
         <h3 className="text-xl font-semibold mb-4">Protect Your Product</h3>
         <p className="text-gray-600 mb-4">
           Get brand-authorised repairs for all phone damages with free pickup and drop.
@@ -162,7 +209,70 @@ const ProductDetails = () => {
           Get your financial losses covered for online transaction frauds on all bank accounts, credit/debit cards, mobile wallets. Covers scam calls, OTP SMS frauds, UPI, net banking, Cyber Attacks, Sim-swapping, Phishing, Spoofing, and more.
         </p>
         <p className="text-blue-500 font-semibold">Know More - Abhishek Singh</p>
-      </div>
+      </div> */}
+
+      <Rating />
+
+ {/* Comments Section */}
+ <div className="my-8 p-6 rounded-md  shadow-lg bg-white shadow-[0_-4px_8px_rgba(0,0,0,0.1)]">
+  <h3 className="text-2xl font-semibold text-gray-800 mb-6">Customer Reviews</h3>
+  {commentedData.length > 0 ? (
+    <ul className="space-y-6">
+      {commentedData.map((comment, index) => (
+        <li key={index} className="p-4 border-b border-gray-200">
+          <div className="flex items-center gap-2 mb-2">
+            <strong className="text-lg font-medium text-gray-900">{comment.user}</strong>
+            <span className="text-sm text-gray-500">{new Date(comment.timestamp).toLocaleString()}</span>
+          </div>
+          <p className="text-gray-700">{comment.comment}</p>
+        </li>
+      ))}
+    </ul>
+    
+  ) : (
+    <p className="text-gray-500 text-lg">No reviews yet. Be the first to comment!</p>
+  )}
+{userCommentShowData.map((comment, index) => (
+  <div key={index} className="p-4 border-b border-gray-200">
+    <div className="flex items-center gap-2 mb-2">
+      <strong className="text-lg font-medium text-gray-900">
+         {comment.newComment.user}
+      </strong>
+    </div>
+    <p className="text-gray-700">Comment: {comment.newComment.comment}</p>
+    <span className="text-sm text-gray-500">
+      Added on: {new Date(comment.newComment.timestamp).toLocaleString()}
+    </span>
+  </div>
+))}
+
+
+  {/* Add Comment Section */}
+  <div className="mt-6 flex flex-col gap-4">
+    <textarea
+      className="p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+      placeholder="Enter User Name like 'abhishek' and enter comment"
+      rows="4"
+      value={commentInput}
+      onChange={handleCommentChange}
+    ></textarea>
+    <div className="flex gap-4">
+      <button className="px-6 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 transition duration-300" onClick={handleAddComment}>
+        Add Comment
+      </button>
+      <button className="px-6 py-2 bg-red-600 text-white rounded-md shadow-md hover:bg-red-700 transition duration-300">
+        Remove Comment
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+  
+
+
+
     </div>
   );
 };

@@ -5,6 +5,9 @@ import useOnlineStatus from '../hooks/useOnlineStatus';
 import { MdSignalWifiOff } from 'react-icons/md';
 import { useDispatch , useSelector } from 'react-redux';
 import { addSearchItems } from '../utils/searchSlice';
+import { commentsData } from '../utils/comment';
+import { addComment } from '../utils/commentSlice';
+
 
 const categories = [
   { label: "Men's Clothing", value: "men's clothing" },
@@ -22,6 +25,7 @@ const Main = () => {
   const searchDataItems = useSelector((store)=>store.cardSearch.searchResults)
   const [searchMessage, setSearchMessage] = useState('');
   const [hasSearched, setHasSearched] = useState(true);
+
 
   
   
@@ -56,6 +60,8 @@ const Main = () => {
      
     }
   }, [searchDataItems, hasSearched]);
+
+ dispatch(addComment(commentsData))
 
 
   const handleCategoryFilter = (category) => {

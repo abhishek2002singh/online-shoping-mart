@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/Constant";
+import ShimmerLogin from "./ShimmerLogin";
 
 const Login = () => {
   const [isSignup, setIsSignup] = useState(false);
@@ -14,8 +15,10 @@ const Login = () => {
   const [mobileNumber, setMobileNumber] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false); // State for shimmer effect
 
   const handleLogin = async () => {
+    setLoading(true); 
     try {
       const res = await axios.post(`${BASE_URL}/login`, { emailId, password }, { withCredentials: true });
       dispatch(addUser(res.data));
@@ -26,6 +29,7 @@ const Login = () => {
   };
 
   const handleSignup = async () => {
+    setLoading(true);
     try {
       const res = await axios.post(`${BASE_URL}/signup`, { firstName, lastName, emailId, password, mobileNumber }, { withCredentials: true });
       dispatch(addUser(res.data));
@@ -34,6 +38,10 @@ const Login = () => {
       console.error(err);
     }
   };
+
+  if (loading) {
+    return <ShimmerLogin />;
+  }
 
   return (
     <div className="min-h-screen flex items-start justify-center" style={{ paddingTop: "30px" }}>
