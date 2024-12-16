@@ -8,27 +8,28 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'First name is required'],
         trim: true,
-        minlength: [2, 'First name must be at least 2 characters long'],
-        maxlength: [50, 'First name can be up to 50 characters long']
+        // minlength: [2, 'First name must be at least 2 characters long'],
+        // maxlength: [50, 'First name can be up to 50 characters long']
     },
     lastName: {
         type: String,
-        required: [true, 'Last name is required'],
-        trim: true,
-        minlength: [2, 'Last name must be at least 2 characters long'],
-        maxlength: [50, 'Last name can be up to 50 characters long']
+        // required: [true, 'Last name is required'],
+        // trim: true,
+        // minlength: [2, 'Last name must be at least 2 characters long'],
+        // maxlength: [50, 'Last name can be up to 50 characters long']
     },
     age: {
         type: Number,
         min: [0, 'Age cannot be negative'],
         max: [120, 'Age must be less than or equal to 120']
     },
-    mobileNumber: {
-        type: String,
-        unique: true,
-        sparse: true, // Makes unique constraint apply only to non-null values
-        match: [/^[0-9]{10}$/, 'Mobile number must be 10 digits']
-    },
+    // mobileNumber: {
+    //     type: String,
+    //     default:"9756348950"
+    //     // unique: true,
+    //     // sparse: true, // Makes unique constraint apply only to non-null values
+    //     // match: [/^[0-9]{10}$/, 'Mobile number must be 10 digits']
+    // },
     password: {
         type: String,
         required: true

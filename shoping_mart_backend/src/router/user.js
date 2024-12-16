@@ -6,7 +6,7 @@ const user = require('../models/user');
 
 // User signup route
 router.post('/signup', async (req, res) => {
-    const { firstName, lastName, emailId, password, mobileNumber } = req.body;
+    const { firstName, lastName, emailId, password } = req.body;
 
     try {
         // Hash the password
@@ -18,7 +18,7 @@ router.post('/signup', async (req, res) => {
             lastName,
             emailId,
             password: hashPassword,
-            mobileNumber
+           
         });
 
         // Save the user to the database

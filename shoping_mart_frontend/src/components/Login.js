@@ -81,14 +81,14 @@ const Login = () => {
                 onChange={(e) => setLastName(e.target.value)}
               />
 
-              <label className="block text-sm font-medium mb-1">Mobile Number</label>
+              {/* <label className="block text-sm font-medium mb-1">Mobile Number</label>
               <input
                 className="text-sm w-full px-4 py-2 border border-gray-300 rounded mb-4"
                 type="tel"
                 placeholder="Enter Mobile Number"
                 value={mobileNumber}
                 onChange={(e) => setMobileNumber(e.target.value)}
-              />
+              /> */}
             </>
           )}
 
