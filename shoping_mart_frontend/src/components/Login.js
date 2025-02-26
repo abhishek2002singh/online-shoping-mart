@@ -5,6 +5,11 @@ import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/Constant";
 import ShimmerLogin from "./ShimmerLogin";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [isSignup, setIsSignup] = useState(false);
@@ -22,9 +27,14 @@ const Login = () => {
     try {
       const res = await axios.post(`${BASE_URL}/login`, { emailId, password }, { withCredentials: true });
       dispatch(addUser(res.data));
+      toast.success("Login successful!", { position: "top-right", autoClose: 2000 });
       navigate('/app');  // Navigate to the home page
     } catch (err) {
-      console.error(err);
+      console.log(err)
+      // console.error(err);
+      toast.error("Login Failed. "+ err?.response?.data.error, { position: "top-right", autoClose: 3000 });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -33,9 +43,13 @@ const Login = () => {
     try {
       const res = await axios.post(`${BASE_URL}/signup`, { firstName, lastName, emailId, password, mobileNumber }, { withCredentials: true });
       dispatch(addUser(res.data));
+      toast.success("Signup successful!", { position: "top-right", autoClose: 2000 });
       navigate('/app');  // Navigate to the home page
     } catch (err) {
       console.error(err);
+      toast.error("Signup failed. "+ err?.response?.data.error, { position: "top-right", autoClose: 3000 });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -80,15 +94,6 @@ const Login = () => {
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
-
-              {/* <label className="block text-sm font-medium mb-1">Mobile Number</label>
-              <input
-                className="text-sm w-full px-4 py-2 border border-gray-300 rounded mb-4"
-                type="tel"
-                placeholder="Enter Mobile Number"
-                value={mobileNumber}
-                onChange={(e) => setMobileNumber(e.target.value)}
-              /> */}
             </>
           )}
 

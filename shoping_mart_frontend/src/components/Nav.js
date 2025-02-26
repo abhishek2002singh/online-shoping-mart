@@ -9,6 +9,8 @@ import { BASE_URL } from '../utils/Constant';
 import { removeUser } from '../utils/userSlice';
 import { setSearchResults } from '../utils/searchSlice'; // Import the setSearchResults action
 import ShimmerLogout from './ShimmerLogout';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Nav = () => {
   const cardItem = useSelector((store) => store.card.items);
@@ -62,6 +64,7 @@ const handleSearch = () => {
     try {
       await axios.post(`${BASE_URL}/logout`, {}, { withCredentials: true });
       dispatch(removeUser());
+      toast.success("Logged out successfully!", { position: "top-right" });
       navigate("/");
     } catch (err) {
       console.error(err);
